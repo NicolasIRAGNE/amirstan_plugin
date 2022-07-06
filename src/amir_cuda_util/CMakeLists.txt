@@ -1,7 +1,7 @@
 #find_package(CUDA REQUIRED)
 enable_language(CUDA)
 
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} --compiler-options -fPIC)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} -allow-unsupported-compiler)
 
 file(GLOB_RECURSE AMIR_CUDA_UTIL_HEADS *.h *.hpp *.cuh)
 file(GLOB AMIR_CUDA_UTIL_SOURCES *.cpp *.cu)
@@ -16,3 +16,17 @@ target_link_libraries(amir_cuda_util ${CUDA_LIBRARY})
 if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.18)
 set_property(TARGET amir_cuda_util PROPERTY CUDA_ARCHITECTURES ${GPU_ARCHS})
 endif()
+
+include(GNUInstallDirs)
+
+install(TARGETS amir_cuda_util
+    EXPORT amir_cuda_utilTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT amir_cuda_utilTargets
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/amir_cuda_util
+)

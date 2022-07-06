@@ -69,14 +69,11 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
 LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_definitions(-std=c++11)
-add_definitions(-fPIC)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 # set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 # set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fopenmp")
 
 ############################################################################################
@@ -116,7 +113,9 @@ endforeach()
 # Generate PTX for the last architecture in the list.
 list(GET GPU_ARCHS -1 LATEST_SM)
 set(GENCODES "${GENCODES} -gencode arch=compute_${LATEST_SM},code=compute_${LATEST_SM}")
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-deprecated-declarations")
+if (MSVC)
+  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -allow-unsupported-compiler")
+endif(MSVC)
 
 ############################################################################################
 
