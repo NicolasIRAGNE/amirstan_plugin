@@ -74,7 +74,7 @@ int deform_conv_forward_cuda(float *input, float *weight, float *bias,
       nInputPlane * kW * kH * im2col_step * outputHeight * outputWidth *
       sizeof(float));
   float *columns = (float *)workspace;
-  workspace = workspace + columns_size;
+  workspace = (char*)workspace + columns_size;
 
   float *output_buffer;
   long long output_buffer_size = 0;

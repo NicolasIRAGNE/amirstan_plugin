@@ -145,8 +145,8 @@ int CarafeFeatureReassemblePluginDynamic::enqueue(
       batch_size * numChannel * outputHeight * outputWidth * sizeof_dtype);
 
   void *rfeatures = workSpace;
-  void *rmasks = workSpace + rfeature_size;
-  void *routput = rmasks + routput_size;
+  void *rmasks = (char*)workSpace + rfeature_size;
+  void *routput = (char*)rmasks + routput_size;
   const void *features = inputs[0];
   const void *masks = inputs[1];
   void *output = outputs[0];
