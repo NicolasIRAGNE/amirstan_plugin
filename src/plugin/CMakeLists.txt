@@ -46,7 +46,7 @@ endif ()
 
 cuda_add_library(${STATIC_TARGET} STATIC ${INFER_PLUGIN_SRC})
 target_link_libraries(${STATIC_TARGET} ${INFER_PLUGIN_LIB})
-target_link_libraries(${STATIC_TARGET} cublas)
+target_link_libraries(${STATIC_TARGET} CUDA::cublas)
 target_include_directories(${STATIC_TARGET} PRIVATE ${PROJECT_SOURCE_DIR}/common)
 
 include(GNUInstallDirs)
