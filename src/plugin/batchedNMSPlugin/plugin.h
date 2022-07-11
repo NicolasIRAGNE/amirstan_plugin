@@ -91,6 +91,8 @@ typedef enum {
 
 #else
 
+#define ASSERT(assertion)
+
 #define ASSERT_PARAM(exp)                                                   \
   do {                                                                      \
     if (!(exp)) {                                                           \
