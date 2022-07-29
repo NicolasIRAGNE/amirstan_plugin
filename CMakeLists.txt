@@ -67,7 +67,7 @@ endif()
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
 LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/lib)
-
+add_definitions(-fPIC)
 add_definitions(-std=c++11)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
