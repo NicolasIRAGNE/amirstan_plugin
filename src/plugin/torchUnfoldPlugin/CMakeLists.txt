@@ -4,7 +4,7 @@ set(STATIC_TARGET ${TARGET_NAME}_static)
 #find_package(CUDA REQUIRED)
 enable_language(CUDA)
 
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} -allow-unsupported-compiler)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} -allow-unsupported-compiler --compiler-options -fPIC)
 
 file(GLOB_RECURSE PLUGIN_HEADS *.h *.hpp *.cuh)
 file(GLOB PLUGIN_SOURCES *.cpp *.cu)
