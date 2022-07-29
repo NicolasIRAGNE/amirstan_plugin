@@ -1,7 +1,7 @@
 add_custom_target(plugin)
 set(TARGET_NAME amirstan_plugin)
-set(SHARED_TARGET ${TARGET_NAME}_shared)
-set(STATIC_TARGET ${TARGET_NAME})
+set(SHARED_TARGET ${TARGET_NAME})
+set(STATIC_TARGET ${TARGET_NAME}_static)
 
 enable_language(CUDA)
 set(TARGET_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -44,10 +44,10 @@ if (WITH_DEEPSTREAM)
     set(INFER_PLUGIN_SRC ${INFER_PLUGIN_SRC} NvDsInferParseMmdet.cpp)
 endif ()
 
-cuda_add_library(${STATIC_TARGET} STATIC ${INFER_PLUGIN_SRC})
-target_link_libraries(${STATIC_TARGET} ${INFER_PLUGIN_LIB})
-target_link_libraries(${STATIC_TARGET} CUDA::cublas)
-target_include_directories(${STATIC_TARGET} PRIVATE ${PROJECT_SOURCE_DIR}/common)
+cuda_add_library(${SHARED_TARGET} SHARED ${INFER_PLUGIN_SRC})
+target_link_libraries(${SHARED_TARGET} ${INFER_PLUGIN_LIB})
+target_link_libraries(${SHARED_TARGET} CUDA::cublas)
+target_include_directories(${SHARED_TARGET} PRIVATE ${PROJECT_SOURCE_DIR}/common)
 
 include(GNUInstallDirs)
 
